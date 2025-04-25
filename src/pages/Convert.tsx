@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Slider } from "@/components/ui/slider";
+import MicrophoneButton from "@/components/MicrophoneButton";
 
 export default function Convert() {
   const [text, setText] = useState("");
@@ -37,6 +37,10 @@ export default function Convert() {
     toast.success("Handwriting image downloaded");
   };
 
+  const handleTranscriptionResult = (transcript: string) => {
+    setText(transcript);
+  };
+
   return (
     <div className="container py-8 max-w-4xl">
       <h1 className="text-3xl font-bold text-ink mb-6">Convert Text to Handwriting</h1>
@@ -47,7 +51,10 @@ export default function Convert() {
             <CardContent className="pt-6">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="text">Enter your text</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="text">Enter your text</Label>
+                    <MicrophoneButton onTranscriptionResult={handleTranscriptionResult} />
+                  </div>
                   <Textarea
                     id="text"
                     placeholder="Type or paste text here to convert it to handwriting..."
