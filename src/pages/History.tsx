@@ -75,6 +75,12 @@ const formatDate = (date: Date) => {
   });
 };
 
+// Define proper type for history items
+type HistoryItem = 
+  | { id: string; type: "upload"; date: Date; title: string; preview: string; }
+  | { id: string; type: "conversion"; date: Date; title: string; content: string; preview: string; }
+  | { id: string; type: "pdf"; date: Date; title: string; preview: string; }
+
 export default function History() {
   const [activeTab, setActiveTab] = useState("all");
   
@@ -88,7 +94,7 @@ export default function History() {
     toast.success(`Deleted ${type}`);
   };
   
-  const getFilteredItems = () => {
+  const getFilteredItems = (): HistoryItem[] => {
     switch (activeTab) {
       case "uploads":
         return mockUploads;
