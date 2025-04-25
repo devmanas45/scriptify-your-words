@@ -5,8 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 
+// Define proper type for history items
+type HistoryItem = 
+  | { id: string; type: "upload"; date: Date; title: string; preview: string; }
+  | { id: string; type: "conversion"; date: Date; title: string; content: string; preview: string; }
+  | { id: string; type: "pdf"; date: Date; title: string; preview: string; }
+
 // Mock data for history items
-const mockUploads = [
+const mockUploads: HistoryItem[] = [
   {
     id: "upload-1",
     type: "upload",
@@ -23,7 +29,7 @@ const mockUploads = [
   }
 ];
 
-const mockConversions = [
+const mockConversions: HistoryItem[] = [
   {
     id: "conversion-1",
     type: "conversion",
@@ -50,7 +56,7 @@ const mockConversions = [
   }
 ];
 
-const mockPdfs = [
+const mockPdfs: HistoryItem[] = [
   {
     id: "pdf-1",
     type: "pdf",
@@ -74,12 +80,6 @@ const formatDate = (date: Date) => {
     day: "numeric",
   });
 };
-
-// Define proper type for history items
-type HistoryItem = 
-  | { id: string; type: "upload"; date: Date; title: string; preview: string; }
-  | { id: string; type: "conversion"; date: Date; title: string; content: string; preview: string; }
-  | { id: string; type: "pdf"; date: Date; title: string; preview: string; }
 
 export default function History() {
   const [activeTab, setActiveTab] = useState("all");
